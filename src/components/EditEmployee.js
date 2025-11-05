@@ -20,7 +20,7 @@ export default function EditEmployee() {
 
   const fetchEmployee = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/employees/${id}`, {
+      const res = await axios.get(`https://ems-backend-r5bn.onrender.com/api/employees/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -49,7 +49,7 @@ export default function EditEmployee() {
 
     try {
       await axios.put(
-        `http://localhost:5000/api/employees/${id}`,
+        `https://ems-backend-r5bn.onrender.com/api/employees/${id}`,
         {
           ...form,
           course: form.course.split(",").map(c => c.trim())

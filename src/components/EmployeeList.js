@@ -9,7 +9,7 @@ export default function EmployeeList() {
   const role = localStorage.getItem("role");
 
   const fetchEmployees = async () => {
-    const res = await axios.get("http://localhost:5000/api/employees/all", {
+    const res = await axios.get("https://ems-backend-r5bn.onrender.com/api/employees/all", {
       headers: { Authorization: `Bearer ${token}` }
     });
     setEmployees(res.data);
@@ -21,7 +21,7 @@ export default function EmployeeList() {
 
   const deleteEmployee = async (id) => {
     if (window.confirm("Are you sure you want to delete this employee?")) {
-      await axios.delete(`http://localhost:5000/api/employees/${id}`, {
+      await axios.delete(`https://ems-backend-r5bn.onrender.com/api/employees/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
 

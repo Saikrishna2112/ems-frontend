@@ -10,7 +10,7 @@ export default function Login() {
   const submit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/api/users/login", { username, password });
+      const res = await axios.post("https://ems-backend-r5bn.onrender.com/api/users/login", { username, password });
       
       localStorage.setItem("token", res.data.token);
 

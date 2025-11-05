@@ -11,7 +11,7 @@ export default function AddEmployee() {
     e.preventDefault();
     const token = localStorage.getItem("token");
 
-    await axios.post("http://localhost:5000/api/employees", form, {
+    await axios.post("https://ems-backend-r5bn.onrender.com/api/employees", form, {
       headers: { Authorization: `Bearer ${token}` }
     });
 
