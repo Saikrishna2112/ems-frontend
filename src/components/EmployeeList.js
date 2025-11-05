@@ -9,7 +9,7 @@ export default function EmployeeList() {
   const role = localStorage.getItem("role");
 
   const fetchEmployees = async () => {
-    const res = await axios.get("https://ems-backend-r5bn.onrender.com/api/employees/all", {
+    const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/employees/all`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     setEmployees(res.data);
@@ -20,12 +20,11 @@ export default function EmployeeList() {
   }, []);
 
   const deleteEmployee = async (id) => {
-    if (window.confirm("Are you sure you want to delete this employee?")) {
-      await axios.delete(`https://ems-backend-r5bn.onrender.com/api/employees/${id}`, {
+    if (window.confirm("Are you sure?")) {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/api/employees/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
-
-      alert("Employee Deleted!");
+      alert("Deleted!");
       fetchEmployees();
     }
   };
@@ -36,18 +35,12 @@ export default function EmployeeList() {
       <table border="1" cellPadding="10">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Mobile</th>
-            <th>Designation</th>
-            <th>Gender</th>
-            <th>Course</th>
-            <th>Actions</th>
+            <th>Name</th><th>Email</th><th>Mobile</th><th>Designation</th><th>Gender</th><th>Course</th><th>Actions</th>
           </tr>
         </thead>
 
         <tbody>
-          {employees.map((emp) => (
+          {employees.map(emp => (
             <tr key={emp._id}>
               <td>{emp.name}</td>
               <td>{emp.email}</td>
@@ -58,10 +51,10 @@ export default function EmployeeList() {
               <td>
                 {(role === "HR" || role === "Manager") ? (
                   <>
-                  <button onClick={() => navigate(`/edit/${emp._id}`)}>Edit</button>
-                  &nbsp;
-                  <button onClick={() => deleteEmployee(emp._id)} style={{ color: "red" }}>Delete</button>
-                </>
+                    <button onClick={() => navigate(`/edit/${emp._id}`)}>Edit</button>
+                    &nbsp;
+                    <button onClick={() => deleteEmployee(emp._id)} style={{ color: "red" }}>Delete</button>
+                  </>
                 ) : "View Only"}
               </td>
             </tr>
