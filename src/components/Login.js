@@ -1,25 +1,20 @@
-import React, { useState } from "react";
-import axios from "axios";
+import { useState } from "react";
+import api from "../api";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const [username, setU] = useState("");
+  const [password, setP] = useState("");
+  const nav = useNavigate();
 
   const submit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/users/login`, { username, password });
-
+      const res = await api.post("/api/users/login", { username, password });
       localStorage.setItem("token", res.data.token);
-
-      const payload = JSON.parse(atob(res.data.token.split(".")[1]));
-      localStorage.setItem("role", payload.role);
-
-      alert("Login successful!");
-      navigate("/");
-    } catch (err) {
+      localStorage.setItem("role", res.data.role);
+      nav("/");
+    } catch {
       alert("Invalid credentials");
     }
   };
@@ -28,8 +23,8 @@ export default function Login() {
     <div style={{ padding: 20 }}>
       <h2>Login</h2>
       <form onSubmit={submit}>
-        <input placeholder="Username" onChange={(e) => setUsername(e.target.value)} /><br /><br />
-        <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} /><br /><br />
+        <input placeholder="Username" onChange={(e) => setU(e.target.value)} /><br /><br />
+        <input type="password" placeholder="Password" onChange={(e) => setP(e.target.value)} /><br /><br />
         <button type="submit">Login</button>
       </form>
     </div>

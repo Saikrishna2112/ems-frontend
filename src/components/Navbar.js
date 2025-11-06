@@ -1,28 +1,26 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
-  const navigate = useNavigate();
+  const nav = useNavigate();
   const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
 
-  const handleLogout = () => {
+  const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
-    navigate("/login");
+    nav("/login");
   };
 
   return (
-    <nav style={{ padding: 10, background: "#eee" }}>
-      <span style={{ marginRight: 20, fontWeight: "bold" }}>EMS App</span>
-
+    <nav style={{ padding: 10, background: "#eee", marginBottom: 10 }}>
+      <button onClick={() => nav("/")}>Employees</button>
+      {(token && (role === "HR" || role === "Manager")) && (
+        <button onClick={() => nav("/add")} style={{ marginLeft: 10 }}>Add Employee</button>
+      )}
       {token ? (
-        <>
-          <button onClick={() => navigate("/")}>Employees</button>
-          <button onClick={() => navigate("/add")}>Add Employee</button>
-          <button onClick={handleLogout} style={{ marginLeft: 10, color: "red" }}>Logout</button>
-        </>
+        <button onClick={logout} style={{ marginLeft: 10, color: "red" }}>Logout</button>
       ) : (
-        <button onClick={() => navigate("/login")}>Login</button>
+        <button onClick={() => nav("/login")} style={{ marginLeft: 10 }}>Login</button>
       )}
     </nav>
   );
