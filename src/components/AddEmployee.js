@@ -1,5 +1,6 @@
 import { useState } from "react";
 import api from "../api";
+import "../App.css";
 
 export default function AddEmployee() {
   const [form, set] = useState({
@@ -24,21 +25,21 @@ export default function AddEmployee() {
   };
 
   return (
-    <div style={{ padding: 20 }}>
+    <div className="container">
       <h2>Add Employee</h2>
       <form onSubmit={submit}>
-        <input placeholder="Name" value={form.name} onChange={e=>set({...form, name:e.target.value})} /><br/><br/>
-        <input placeholder="Email" value={form.email} onChange={e=>set({...form, email:e.target.value})} /><br/><br/>
-        <input placeholder="Mobile" value={form.mobileNo} onChange={e=>set({...form, mobileNo:e.target.value})} /><br/><br/>
-        <input placeholder="Designation" value={form.designation} onChange={e=>set({...form, designation:e.target.value})} /><br/><br/>
-        Gender:
+        <input placeholder="Name" value={form.name} onChange={e=>set({...form, name:e.target.value})} />
+        <input placeholder="Email" value={form.email} onChange={e=>set({...form, email:e.target.value})} />
+        <input placeholder="Mobile" value={form.mobileNo} onChange={e=>set({...form, mobileNo:e.target.value})} />
+        <input placeholder="Designation" value={form.designation} onChange={e=>set({...form, designation:e.target.value})} />
+        <label>Gender:</label>
         <select value={form.gender} onChange={e=>set({...form, gender:e.target.value})}>
           <option value="">--Select--</option>
-          <option value="M">M</option>
-          <option value="F">F</option>
-        </select><br/><br/>
-        Courses (comma-separated):
-        <input value={form.course} onChange={e=>set({...form, course:e.target.value})} /><br/><br/>
+          <option value="M">Male</option>
+          <option value="F">Female</option>
+        </select>
+        <label>Courses (comma-separated):</label>
+        <input value={form.course} onChange={e=>set({...form, course:e.target.value})} />
         <button>Save</button>
       </form>
     </div>

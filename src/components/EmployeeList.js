@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../api";
 import { useNavigate } from "react-router-dom";
+import "../App.css";
 
 export default function EmployeeList() {
   const [employees, setEmployees] = useState([]);
@@ -27,9 +28,12 @@ export default function EmployeeList() {
   };
 
   return (
-    <div style={{ padding: 20 }}>
+    <div className="container">
       <h2>Employees</h2>
-      <table border="1" cellPadding="8">
+      {(role === "HR" || role === "Manager") && (
+        <button onClick={() => nav("/add")}>+ Add Employee</button>
+      )}
+      <table>
         <thead>
           <tr>
             <th>Name</th><th>Email</th><th>Mobile</th><th>Designation</th><th>Gender</th><th>Course</th><th>Actions</th>
@@ -45,13 +49,12 @@ export default function EmployeeList() {
               <td>{e.gender}</td>
               <td>{(e.course || []).join(", ")}</td>
               <td>
-                {(role === "HR" || role === "Manager")
-                  ? <>
-                      <button onClick={() => nav(`/edit/${e._id}`)}>Edit</button>
-                      &nbsp;
-                      <button onClick={() => deleteEmp(e._id)} style={{ color: "red" }}>Delete</button>
-                    </>
-                  : "View Only"}
+                {(role === "HR" || role === "Manager") ? (
+                  <>
+                    <button onClick={() => nav(`/edit/${e._id}`)}>Edit</button>
+                    <button onClick={() => deleteEmp(e._id)} style={{ color: "red" }}>Delete</button>
+                  </>
+                ) : "View Only"}
               </td>
             </tr>
           ))}

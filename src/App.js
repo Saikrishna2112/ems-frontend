@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import "./App.css";
+
 import Login from "./components/Login";
 import EmployeeList from "./components/EmployeeList";
 import AddEmployee from "./components/AddEmployee";

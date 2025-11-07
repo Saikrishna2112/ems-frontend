@@ -1,6 +1,7 @@
 import { useState } from "react";
 import api from "../api";
 import { useNavigate } from "react-router-dom";
+import "../App.css";
 
 export default function Login() {
   const [username, setU] = useState("");
@@ -20,13 +21,24 @@ export default function Login() {
   };
 
   return (
-    <div style={{ padding: 20 }}>
-      <h2>Login</h2>
-      <form onSubmit={submit}>
-        <input placeholder="Username" onChange={(e) => setU(e.target.value)} /><br /><br />
-        <input type="password" placeholder="Password" onChange={(e) => setP(e.target.value)} /><br /><br />
-        <button type="submit">Login</button>
-      </form>
+    <div className="login-container">
+      <div className="login-box">
+        <h2>Employee Portal Login</h2>
+        <form onSubmit={submit}>
+          <input
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setU(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setP(e.target.value)}
+          />
+          <button type="submit">Login</button>
+        </form>
+      </div>
     </div>
   );
 }
